@@ -1,6 +1,5 @@
 FROM centos:7
 
-ENV PHP_VERSION 72
 ENV ORACLE_OCI8 2.2.0
 
 
@@ -10,7 +9,7 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
     yum groupinstall -y "Development tools" \
     yum install -y systemtap-sdt-devel \
     yum install -y yum-utils && \
-    yum-config-manager --enable remi-php$CHROME_VERSION && \
+    yum-config-manager --enable remi-php72 && \
     yum update -y && \
     yum install -y \
     php.x86_64 \
