@@ -58,3 +58,7 @@ RUN rm /etc/httpd/conf.d/welcome.conf \
     && sed -i -e "s/\;error_log\ =\ php_errors\.log/error_log\ =\ \/var\/log\/php_errors\.log/g" /etc/php.ini \
     && sed -i -e "s/#LoadModule mpm_event_module modules\/mod_mpm_event.so/LoadModule mpm_event_module modules\/mod_mpm_event.so/g" /etc/httpd/conf.modules.d/00-mpm.conf \
     && sed -i -e "s/LoadModule mpm_prefork_module modules\/mod_mpm_prefork.so/#LoadModule mpm_prefork_module modules\/mod_mpm_prefork.so/g" /etc/httpd/conf.modules.d/00-mpm.conf
+
+#install composer
+RUN curl -sS https://getcomposer.org/installer | php \
+&& mv composer.phar /usr/local/bin/composer

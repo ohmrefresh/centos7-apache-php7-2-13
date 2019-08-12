@@ -1,10 +1,11 @@
-FROM ohmrefresh/centos7-apache-php7-2-13:0.6
+FROM ohmrefresh/centos7-apache-php7-2-13
 
 #copy web resource
 RUN mkdir -p /var/www/html/web
 ADD web/ /var/www/html/web/
 
 WORKDIR /var/www/html/web/
+
 
 #copy config
 ADD web.conf /etc/httpd/sites-available/web.conf
