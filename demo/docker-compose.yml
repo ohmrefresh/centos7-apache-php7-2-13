@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+  web:
+    build: .
+    container_name: web
+    ports:
+      - "80:80"
+    volumes:
+     - ./web:/var/www/html/web/
