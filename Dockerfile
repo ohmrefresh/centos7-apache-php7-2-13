@@ -2,7 +2,6 @@ FROM centos:7
 
 ENV ORACLE_OCI8 2.2.0
 
-
 RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
     yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
     yum install -y http://mirror.centos.org/centos/7/os/x86_64/Packages/libaio-0.3.109-13.el7.x86_64.rpm \
@@ -50,7 +49,7 @@ RUN usermod -u 1000 apache && ln -sf /dev/stdout /var/log/httpd/access_log && ln
 
 #install oracle client
 RUN rpm -ivh /tmp/*.rpm
-RUN cd /tmp/ && pear download pecl/oci8-$ORACLE_OCI8 && tar -xvzf oci8-$ORACLE_OCI8.tgz && cd oci8-$ORACLE_OCI8 && phpize
+RUN cd /tmp/ && pear download pecl/oci8-2.2.0 && tar -xvzf oci8-2.2.0.tgz && cd oci8-2.2.0 && phpize
 RUN export PHP_DTRACE=yes && pecl install oci8 && echo "extension=oci8.so" >> /etc/php.ini
 
 
@@ -59,7 +58,3 @@ RUN rm /etc/httpd/conf.d/welcome.conf \
     && sed -i -e "s/\;error_log\ =\ php_errors\.log/error_log\ =\ \/var\/log\/php_errors\.log/g" /etc/php.ini \
     && sed -i -e "s/#LoadModule mpm_event_module modules\/mod_mpm_event.so/LoadModule mpm_event_module modules\/mod_mpm_event.so/g" /etc/httpd/conf.modules.d/00-mpm.conf \
     && sed -i -e "s/LoadModule mpm_prefork_module modules\/mod_mpm_prefork.so/#LoadModule mpm_prefork_module modules\/mod_mpm_prefork.so/g" /etc/httpd/conf.modules.d/00-mpm.conf
-
-RUN rm -rf /tmp
-
-WORKDIR /var/www/html/
